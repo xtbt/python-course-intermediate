@@ -72,25 +72,33 @@ DATA = [
 ]
 
 def main():
-    all_python_workers = [worker['name'] for worker in DATA if worker['language'] == 'python']
-    print('PYTHON WORKERS --------------------------------------------')
-    print(all_python_workers)
+    print('PYTHON WORKERS USING COMPREHENSIONS --------------------------------')
+    all_python_workers_comprehensions = [worker['name'] for worker in DATA if worker['language'] == 'python']
+    print(all_python_workers_comprehensions)
+    print('PYTHON WORKERS USING HIGH ORDER FUNCTIONS --------------------------')
+    all_python_workers_lambda = list(filter(lambda worker: worker['language'] == 'python', DATA))
+    all_python_workers_lambda = list(map(lambda worker: worker['name'], all_python_workers_lambda))
+    print(all_python_workers_lambda)
 
-    all_platzi_workers = [worker['name'] for worker in DATA if worker['organization'] == 'Platzi']
-    print('PLATZI WORKERS --------------------------------------------')
-    print(all_platzi_workers)
+    print('PLATZI WORKERS USING COMPREHENSIONS --------------------------------')
+    all_platzi_workers_comprehensions = [worker['name'] for worker in DATA if worker['organization'] == 'Platzi']
+    print(all_platzi_workers_comprehensions)
+    print('PLATZI WORKERS USING HIGH ORDER FUNCTIONS --------------------------')
+    all_platzi_workers_lambda = list(filter(lambda worker: worker['organization'] == 'Platzi', DATA))
+    all_platzi_workers_lambda = list(map(lambda worker: worker['name'], all_platzi_workers_lambda))
+    print(all_platzi_workers_lambda)
 
-    adults = list(filter(lambda worker: worker['age'] > 18, DATA))
-    print('ADULT WORKERS ---------------------------------------------')
-    print(adults)
+    print('ADULT WORKERS USING HIGH ORDER FUNCTIONS ---------------------------')
+    adults_lambda = list(filter(lambda worker: worker['age'] >= 18, DATA))
+    adults_lambda = list(map(lambda worker: worker['name'], adults_lambda))
+    print(adults_lambda)
+    print('ADULT WORKERS USING LIST COMPREHENSIONS ----------------------------')
+    adults_comprehensions = [worker['name'] for worker in DATA if worker['age'] >= 18]
+    print(adults_comprehensions)
 
-    adults = list(map(lambda worker: worker['name'], adults))
-    print('ADULT WORKERS (ONLY NAMES) --------------------------------')
-    print(adults)
-
+    print('OLD WORKERS USING HIGH ORDER FUNCTIONS -----------------------------')
     old_people = list(map(lambda worker: {**worker , **{'old': worker['age'] > 70}}, DATA)) # Python < 3.8
     #old_people = list(map(lambda worker: worker | {'old': worker['age'] > 70}, DATA)) # Python >= 3.9
-    print('OLD WORKERS -----------------------------------------------')
     print(old_people)
 
 
